@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -60,12 +61,12 @@ public class citasReactivaServiceImpl implements IcitasReactivaService {
 
     @Override
     public Flux<citasDTOReactiva> findByFecha(String fecha) {
-        return null;
+        return IcitasReactivaRepository.findByFechaReservaCita(fecha);
     }
 
     @Override
     public Flux<citasDTOReactiva> findByHora(String hora) {
-        return null;
+        return IcitasReactivaRepository.findByHoraReservaCita(hora);
     }
 
     @Override
@@ -84,5 +85,14 @@ public class citasReactivaServiceImpl implements IcitasReactivaService {
                     return save(cita);
                 })
                 .switchIfEmpty(Mono.empty());
+    }
+
+    @Override
+    public Flux<String> consultarMedico(String idPaciente) {
+        return IcitasReactivaRepository.findByIdPaciente(idPaciente)
+                .flatMap(cita -> Mono.just("Nombre médico: "+cita.getNombreMedico()+" "+cita.getApellidosMedico()+
+                            "\nhora de la cita: "+cita.getHoraReservaCita()))
+                .switchIfEmpty(Mono.empty());
+
     }
 }
