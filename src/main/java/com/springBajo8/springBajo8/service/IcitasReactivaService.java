@@ -17,4 +17,10 @@ public interface IcitasReactivaService {
     Flux<citasDTOReactiva> findAll();
 
     Mono<citasDTOReactiva> findById(String id);
+
+    Flux<citasDTOReactiva> findByFecha(String fecha);
+
+    Flux<citasDTOReactiva> findByHora(String hora);
+
+    Mono<citasDTOReactiva> cancelarCita(String id, citasDTOReactiva cita);
 }

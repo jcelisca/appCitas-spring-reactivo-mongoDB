@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.Optional;
+
 @Service
 public class citasReactivaServiceImpl implements IcitasReactivaService {
 
@@ -54,5 +56,33 @@ public class citasReactivaServiceImpl implements IcitasReactivaService {
     @Override
     public Mono<citasDTOReactiva> findById(String id) {
         return this.IcitasReactivaRepository.findById(id);
+    }
+
+    @Override
+    public Flux<citasDTOReactiva> findByFecha(String fecha) {
+        return null;
+    }
+
+    @Override
+    public Flux<citasDTOReactiva> findByHora(String hora) {
+        return null;
+    }
+
+    @Override
+    public Mono<citasDTOReactiva> cancelarCita(String id, citasDTOReactiva cita){
+        return IcitasReactivaRepository.findById(id)
+                .flatMap(cita1 ->{
+                    cita.setId(id);
+                    cita.setIdPaciente(cita1.getIdPaciente());
+                    cita.setNombrePaciente(cita1.getNombrePaciente());
+                    cita.setApellidosPaciente(cita1.getApellidosPaciente());
+                    cita.setNombreMedico(cita1.getNombreMedico());
+                    cita.setApellidosMedico(cita1.getApellidosMedico());
+                    cita.setHoraReservaCita(cita1.getHoraReservaCita());
+                    cita.setFechaReservaCita(cita1.getFechaReservaCita());
+                    cita.setEstadoReservaCita(cita.getEstadoReservaCita());
+                    return save(cita);
+                })
+                .switchIfEmpty(Mono.empty());
     }
 }
