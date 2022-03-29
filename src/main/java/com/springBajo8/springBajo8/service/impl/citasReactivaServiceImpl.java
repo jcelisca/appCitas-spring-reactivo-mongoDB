@@ -12,6 +12,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -94,5 +95,13 @@ public class citasReactivaServiceImpl implements IcitasReactivaService {
                             "\nhora de la cita: "+cita.getHoraReservaCita()))
                 .switchIfEmpty(Mono.empty());
 
+    }
+
+    @Override
+    public Flux<String> consultarPadecimientos(String idPaciente) {
+        return IcitasReactivaRepository.findByIdPaciente(idPaciente)
+                .flatMap(cita -> Mono.just( "Nombre paciente: "+cita.getNombrePaciente()+" "
+                        +"\n"+ cita.getHistorial()
+                ));
     }
 }
