@@ -68,7 +68,7 @@ public class citasReactivaResource {
     }
 
     @GetMapping("/citasReactivas/{idPaciente}/medico")
-    private Flux<String> conultarMedico(@PathVariable("idPaciente") String idPaciente){
+    private Flux<String> consultarMedico(@PathVariable("idPaciente") String idPaciente){
         return icitasReactivaService.consultarMedico(idPaciente);
     }
 
