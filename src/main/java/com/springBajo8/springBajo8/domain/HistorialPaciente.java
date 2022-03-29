@@ -15,11 +15,11 @@ public class HistorialPaciente {
         return tratamiento;
     }
 
-    public void setPadecimientos(String padecimiento) {
+    public void setPadecimiento(String padecimiento) {
         this.padecimiento = padecimiento;
     }
 
-    public void setTratamientos(String tratamiento) {
+    public void setTratamiento(String tratamiento) {
         this.tratamiento = tratamiento;
     }
 
