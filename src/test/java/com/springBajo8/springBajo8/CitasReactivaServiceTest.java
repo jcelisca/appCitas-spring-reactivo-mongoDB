@@ -16,7 +16,7 @@ public class CitasReactivaServiceTest {
     private IcitasReactivaService service;
 
     @Test
-    void buscarByIdPaciente(){
+    void buscarPorIdPaciente(){
         citasDTOReactiva cita = new citasDTOReactiva();
         cita.setIdPaciente("1");
         cita.setNombrePaciente("Roberto");
@@ -28,7 +28,7 @@ public class CitasReactivaServiceTest {
     }
 
     @Test
-    void cancelarCita(){
+    void buscarPorId(){
         citasDTOReactiva cita = new citasDTOReactiva();
         cita.setId("yyuu33");
         cita.setIdPaciente("1");
@@ -37,20 +37,12 @@ public class CitasReactivaServiceTest {
         cita.setHoraReservaCita("08:00 am");
         cita.setEstadoReservaCita("Activa");
 
-        Mono<citasDTOReactiva> cancelar = service.findById("yyuu33");
-        StepVerifier.create(cancelar).verifyComplete();
+        Mono<citasDTOReactiva> citas = service.findById("yyuu33");
+        StepVerifier.create(citas).verifyComplete();
     }
 
     @Test
-    void buscarByHora(){
-        citasDTOReactiva cita = new citasDTOReactiva();
-        cita.setId("yyuu33");
-        cita.setIdPaciente("1");
-        cita.setNombrePaciente("Roberto");
-        cita.setNombreMedico("Julian");
-        cita.setHoraReservaCita("08:00 am");
+    void buscarPorHora(){
 
-        Flux<citasDTOReactiva> consultaPorHora = service.findByHora("08:00 am");
-        StepVerifier.create(consultaPorHora).expectNext(cita).verifyComplete();
     }
 }
